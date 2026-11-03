@@ -1,949 +1,1392 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="AIGC" content='{"AIGC":{"Label":"1","ContentProducer":"001191340000711771143J00000","ProduceID":"im-wechat-7eb828f6dc34-efdfcd10","ReservedCode1":"","ContentPropagator":"001191340000711771143J00000","PropagateID":"im-wechat-7eb828f6dc34-efdfcd10","ReservedCode2":""}}'>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>元素周期表前20号元素消消乐（进阶版）- 初中化学课堂互动</title>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML2WEB · 把 HTML 变成网址</title>
 <style>
-  :root {
-    --card-bg: rgba(30, 41, 59, 0.85);
-    --card-border: rgba(255, 255, 255, 0.15);
-    --accent-blue: #38bdf8;
-    --accent-yellow: #facc15;
-    --text-main: #f8fafc;
-    --text-sub: #94a3b8;
-    --nonmetal: #38bdf8;
-    --metal: #fb923c;
-    --noble: #c084fc;
+  :root{
+    --bg:#f6f6f3;
+    --panel:#ffffff;
+    --line:#e7e7e2;
+    --line-strong:#d5d5cd;
+    --text:#1b1b18;
+    --muted:#7c7c74;
+    --faint:#b9b9b0;
+    --ink:#14140f;
+    --soft:#f1f0eb;
+    --ok:#0f7a4d;
+    --ok-soft:#e7f5ee;
+    --warn:#a8541a;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -webkit-user-select: none;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:var(--sans);font-size:14px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    display:flex;flex-direction:column;overflow:hidden;
   }
+  button{font-family:inherit}
+  a{color:inherit}
 
-  body {
-    background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
-    color: var(--text-main);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px;
-    overflow-x: hidden;
+  /* ---------- top bar ---------- */
+  .topbar{
+    height:56px;flex:0 0 56px;display:flex;align-items:center;gap:14px;
+    padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line);
+    position:relative;z-index:5;
   }
-
-  header {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
+  .brand{display:flex;align-items:center;gap:9px;font-weight:650;font-size:14.5px;letter-spacing:-.01em}
+  .mark{
+    width:27px;height:27px;border-radius:7px;background:var(--ink);color:#fff;
+    display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:600;
+    letter-spacing:-.06em;padding-right:1px;
   }
+  .brand small{color:var(--faint);font-weight:500;font-size:12px;letter-spacing:0;margin-left:2px}
 
-  .title-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 8px;
-    gap: 8px;
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;
+    border-radius:999px;background:var(--soft);color:var(--muted);
+    font-size:12px;font-weight:520;border:1px solid transparent;
+    max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.55;flex:0 0 auto}
+  .pill.live{background:var(--ok-soft);color:var(--ok);border-color:#cfe9dc;cursor:pointer}
+  .pill.live .dot{background:var(--ok);opacity:1}
+  .pill:hover.live{background:#dcf1e6}
 
-  h1 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #fb923c, #f43f5e, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .spacer{flex:1}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    height:32px;padding:0 13px;border-radius:8px;border:1px solid var(--line-strong);
+    background:#fff;color:var(--text);font-size:13px;font-weight:520;
+    cursor:pointer;transition:background .15s,border-color .15s,transform .05s;
+    white-space:nowrap;
   }
+  .btn:hover{background:#f7f7f3;border-color:#c6c6bd}
+  .btn:active{transform:translateY(.5px)}
+  .btn-primary{background:var(--ink);border-color:var(--ink);color:#fff}
+  .btn-primary:hover{background:#2c2c25;border-color:#2c2c25}
+  .btn-ghost{border-color:transparent;background:transparent;color:var(--muted)}
+  .btn-ghost:hover{background:var(--soft);color:var(--text);border-color:transparent}
+  .btn-sm{height:27px;padding:0 10px;font-size:12px;border-radius:7px}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    width: 100%;
+  /* ---------- workspace ---------- */
+  .workspace{
+    flex:1;min-height:0;display:grid;
+    grid-template-columns:var(--left,50%) 1px minmax(0,1fr);
   }
-
-  .stat-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 10px;
-    padding: 6px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    backdrop-filter: blur(8px);
+  .pane{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--panel)}
+  .pane-head{
+    flex:0 0 38px;height:38px;display:flex;align-items:center;gap:8px;
+    padding:0 10px 0 14px;border-bottom:1px solid var(--line);background:#fcfcfa;
   }
-
-  .stat-label { font-size: 0.7rem; color: var(--text-sub); white-space: nowrap; }
-  .stat-val { font-size: 1.1rem; font-weight: 700; color: var(--accent-blue); }
-  .stat-val.time-warning { color: #f59e0b; }
-  .stat-val.time-danger { color: #ef4444; animation: blink 0.7s infinite; }
-
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-  .control-panel {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    gap: 8px;
-    flex-wrap: wrap;
+  .pane-title{
+    font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--faint);
   }
-
-  .mode-selector {
-    display: flex;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 3px;
-    gap: 3px;
-    flex-wrap: wrap;
+  .tab{
+    display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;
+    border-radius:6px;background:var(--soft);font-family:var(--mono);font-size:11.5px;
+    color:#57574f;font-weight:500;
   }
+  .tab i{width:5px;height:5px;border-radius:50%;background:#c9a227;display:block}
 
-  .mode-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-sub);
-    padding: 4px 10px;
-    border-radius: 16px;
-    font-size: 0.76rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+  .splitter{
+    background:var(--line);cursor:col-resize;position:relative;
   }
-
-  .mode-btn.active {
-    background: linear-gradient(135deg, #f97316, #ef4444);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.45);
+  .splitter::after{
+    content:"";position:absolute;inset:0 -4px;z-index:2;
   }
+  .splitter:hover,.splitter.dragging{background:#9a9a90}
 
-  .btn {
-    background: linear-gradient(135deg, #10b981, #059669);
-    border: none;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
-    transition: transform 0.1s;
-    white-space: nowrap;
+  /* ---------- editor ---------- */
+  .code-wrap{display:flex;flex:1;min-height:0;position:relative;background:#fff}
+  .gutter{
+    flex:0 0 auto;overflow:hidden;padding:14px 9px 14px 12px;
+    background:#fbfbf8;border-right:1px solid var(--line);min-width:46px;
   }
-
-  .btn:active { transform: scale(0.96); }
-
-  .btn-restart {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+  #gutterInner{
+    font-family:var(--mono);font-size:13px;line-height:21px;
+    color:#c5c5bc;text-align:right;user-select:none;white-space:pre;
   }
-
-  .game-container {
-    width: 100%;
-    max-width: 800px;
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  #code{
+    flex:1;min-width:0;padding:14px 16px;border:0;outline:0;resize:none;
+    font-family:var(--mono);font-size:13px;line-height:21px;
+    white-space:pre;overflow:auto;background:#fff;color:#1f1f1a;
+    tab-size:2;-moz-tab-size:2;
   }
-
-  .timer-wrap {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 10px;
+  #code::selection{background:#dbe6ff}
+  .drop-hint{
+    position:absolute;inset:10px;border:1.5px dashed #b9c6e8;border-radius:10px;
+    background:rgba(240,244,255,.9);display:none;place-items:center;
+    font-size:13px;color:#3b5aa8;font-weight:520;z-index:3;pointer-events:none;
+    backdrop-filter:blur(1px);
   }
+  .drop-hint.on{display:grid}
 
-  .timer-bar {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, #22c55e, #38bdf8);
-    transition: width 0.9s linear, background 0.4s;
+  /* ---------- preview ---------- */
+  .seg{
+    display:inline-flex;background:var(--soft);border-radius:7px;padding:2.5px;gap:1px;
   }
-
-  .timer-bar.warning { background: linear-gradient(90deg, #f59e0b, #fb923c); }
-  .timer-bar.danger { background: linear-gradient(90deg, #ef4444, #b91c1c); }
-
-  .grid-board {
-    display: grid;
-    gap: 7px;
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
+  .seg button{
+    border:0;background:transparent;padding:4px 10px;border-radius:5px;
+    font-size:11.5px;color:var(--muted);cursor:pointer;font-weight:520;transition:.12s;
   }
+  .seg button.on{background:#fff;color:var(--text);box-shadow:0 1px 2px rgba(20,20,15,.1)}
+  .seg button:not(.on):hover{color:var(--text)}
 
-  .grid-4x5 { grid-template-columns: repeat(5, 1fr); }
-  .grid-6x4 { grid-template-columns: repeat(6, 1fr); }
-
-  .chem-card {
-    aspect-ratio: 1 / 1;
-    background: linear-gradient(145deg, #1e293b, #0f172a);
-    border: 2px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+  .stage{
+    flex:1;min-height:0;display:flex;padding:12px;background:#efefea;overflow:hidden;
   }
-
-  .chem-card:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.3); }
-
-  .chem-card.selected {
-    border-color: var(--accent-yellow);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
-    background: linear-gradient(145deg, #334155, #1e293b);
+  #preview{
+    flex:1;min-width:0;border:0;background:#fff;border-radius:8px;
+    box-shadow:0 1px 2px rgba(20,20,15,.06),0 12px 32px -20px rgba(20,20,15,.4);
+    transition:flex-basis .18s ease, width .18s ease;
   }
+  .stage.device #preview{flex:0 0 auto;width:390px;margin:0 auto}
+  .stage.tablet #preview{flex:0 0 auto;width:768px;margin:0 auto}
 
-  .chem-card.matched {
-    animation: matchDisappear 0.45s forwards;
-    pointer-events: none;
+  /* ---------- status bar ---------- */
+  .statusbar{
+    flex:0 0 28px;height:28px;display:flex;align-items:center;gap:14px;
+    padding:0 14px;background:var(--panel);border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--faint);font-family:var(--mono);
   }
+  .statusbar .sep{width:1px;height:11px;background:var(--line-strong)}
+  .statusbar b{font-weight:520;color:var(--muted)}
+  .status-ok{color:var(--ok)}
 
-  .chem-card.wrong {
-    animation: shake 0.4s ease-in-out;
-    border-color: #ef4444 !important;
-    background: rgba(239, 68, 68, 0.2) !important;
+  /* ---------- overlay / modal ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(20,20,15,.4);
+    backdrop-filter:blur(4px);z-index:60;
+    display:flex;align-items:center;justify-content:center;padding:20px;
   }
-
-  .chem-card.face-down {
-    background: linear-gradient(145deg, #1e3a5f, #0b1220);
-    border-color: rgba(56, 189, 248, 0.35);
+  .overlay[hidden]{display:none}
+  .modal{
+    width:min(552px,100%);max-height:88vh;overflow:auto;
+    background:#fff;border-radius:16px;padding:28px 28px 24px;
+    box-shadow:0 40px 90px -32px rgba(20,20,15,.5),0 0 0 1px rgba(20,20,15,.05);
+    position:relative;
+    animation:pop .2s cubic-bezier(.2,.9,.3,1);
   }
-
-  .chem-card.face-down .card-type-tag,
-  .chem-card.face-down .card-category-dot,
-  .chem-card.face-down .card-main-val,
-  .chem-card.face-down .card-sub-info { visibility: hidden; }
-
-  .chem-card.face-down::after {
-    content: '⚛';
-    position: absolute;
-    font-size: 1.7rem;
-    color: rgba(56, 189, 248, 0.55);
+  @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+  .modal-close{
+    position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:7px;
+    border:0;background:transparent;color:var(--faint);font-size:19px;line-height:1;
+    cursor:pointer;display:grid;place-items:center;
   }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-6px); }
-    40%, 80% { transform: translateX(6px); }
+  .modal-close:hover{background:var(--soft);color:var(--text)}
+  .modal-title{margin:0 0 6px;font-size:19px;font-weight:650;letter-spacing:-.02em}
+  .modal-sub{margin:0 0 22px;font-size:13px;color:var(--muted);line-height:1.65}
+  .field-label{
+    display:block;font-size:12px;font-weight:600;color:#57574f;
+    margin-bottom:7px;letter-spacing:.01em;
   }
-
-  @keyframes matchDisappear {
-    0% { transform: scale(1.08); filter: brightness(1.6); opacity: 1; }
-    50% { transform: scale(1.15) rotate(5deg); opacity: 0.8; }
-    100% { transform: scale(0); opacity: 0; }
+  .token-row{display:flex;gap:6px}
+  .token-row input{
+    flex:1;min-width:0;height:36px;padding:0 11px;border-radius:8px;
+    border:1px solid var(--line-strong);font-family:var(--mono);font-size:12.5px;
+    outline:0;transition:border-color .15s,box-shadow .15s;background:#fff;color:var(--text);
   }
-
-  .card-type-tag {
-    position: absolute;
-    top: 4px;
-    left: 5px;
-    font-size: 0.6rem;
-    color: var(--text-sub);
-    font-weight: bold;
+  .token-row input:focus{border-color:#8a8a80;box-shadow:0 0 0 3px rgba(20,20,15,.07)}
+  .text-input{
+    width:100%;height:36px;padding:0 11px;border-radius:8px;
+    border:1px solid var(--line-strong);font-family:var(--mono);font-size:13px;
+    outline:0;background:#fff;color:var(--text);transition:border-color .15s,box-shadow .15s;
   }
-
-  .card-category-dot {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  .text-input:focus{border-color:#8a8a80;box-shadow:0 0 0 3px rgba(20,20,15,.07)}
+  .hint code{
+    font-family:var(--mono);font-size:11.5px;background:var(--soft);
+    padding:1px 5px;border-radius:4px;
   }
-
-  .card-main-val { font-size: 1.4rem; font-weight: 800; line-height: 1.1; }
-
-  .card-sub-info {
-    font-size: 0.62rem;
-    color: var(--text-sub);
-    margin-top: 2px;
-    text-align: center;
+  #buildStatus.built{color:var(--ok);font-weight:600}
+  #buildStatus.building{color:var(--warn)}
+  #buildStatus.errored{color:#c0392b;font-weight:600}
+  .help-link{
+    display:inline-block;margin-top:9px;font-size:12px;color:#3b5aa8;
+    text-decoration:none;font-weight:520;
   }
+  .help-link:hover{text-decoration:underline}
+  .hint{margin:10px 0 0;font-size:12px;color:var(--muted);line-height:1.6}
+  .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:24px}
 
-  .type-nonmetal .card-main-val { color: var(--nonmetal); }
-  .type-metal .card-main-val { color: var(--metal); }
-  .type-noble .card-main-val { color: var(--noble); }
-
-  .dot-nonmetal { background-color: var(--nonmetal); }
-  .dot-metal { background-color: var(--metal); }
-  .dot-noble { background-color: var(--noble); }
-
-  .combo-popup {
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    font-size: 2.1rem;
-    font-weight: 900;
-    color: #facc15;
-    text-shadow: 0 0 15px rgba(250, 204, 21, 0.8);
-    pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s;
-    z-index: 50;
-    opacity: 0;
-    white-space: nowrap;
+  .steps{list-style:none;margin:6px 0 4px;padding:0;display:flex;flex-direction:column;gap:14px}
+  .steps li{display:flex;align-items:center;gap:11px;font-size:13.5px;color:var(--muted)}
+  .steps .tick{
+    width:17px;height:17px;border-radius:50%;border:1.5px solid #d8d8d0;
+    flex:0 0 auto;display:grid;place-items:center;transition:.2s;
   }
+  .steps li.run{color:var(--text)}
+  .steps li.run .tick{border-color:#8a8a80;border-top-color:transparent;animation:spin .7s linear infinite}
+  .steps li.done{color:var(--text)}
+  .steps li.done .tick{border-color:var(--ok);background:var(--ok)}
+  .steps li.done .tick::after{content:"";width:8px;height:4.5px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff;transform:rotate(-45deg) translate(.5px,-1px)}
+  .steps li.err .tick{border-color:#c0392b;background:#c0392b}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
-  .combo-popup.show { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-
-  .penalty-popup {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #ef4444;
-    text-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.25s, transform 0.25s;
-    z-index: 50;
-    white-space: nowrap;
+  .link-box{
+    display:flex;align-items:center;gap:10px;padding:12px 12px 12px 14px;
+    border:1px solid #cfe9dc;background:#f4fbf7;border-radius:10px;
   }
-
-  .penalty-popup.show { opacity: 1; transform: translate(-50%, -75%); }
-
-  .knowledge-card {
-    width: 100%;
-    max-width: 800px;
-    margin-top: 10px;
-    background: rgba(30, 41, 59, 0.7);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 8px 14px;
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
+  .link-box a{
+    flex:1;min-width:0;font-family:var(--mono);font-size:12.5px;color:#0d6b43;
+    text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    font-weight:520;
   }
-
-  .know-title { color: var(--accent-yellow); font-weight: 700; white-space: nowrap; }
-
-  .know-content { color: var(--text-main); flex: 1; margin-left: 10px; }
-
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.78);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    backdrop-filter: blur(6px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
+  .link-box a:hover{text-decoration:underline}
+  .alt-links{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+  .alt-row{display:flex;gap:10px;align-items:baseline;font-size:12px}
+  .alt-row span{flex:0 0 68px;color:var(--faint);font-weight:520}
+  .alt-row a{
+    flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   }
+  .alt-row a:hover{color:var(--text);text-decoration:underline}
 
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-  .win-modal {
-    background: linear-gradient(145deg, #1e293b, #0f172a);
-    border: 2px solid var(--accent-blue);
-    border-radius: 20px;
-    width: 90%;
-    max-width: 440px;
-    padding: 22px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.3);
-    transform: scale(0.85);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .history{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+  .history h3{margin:0 0 10px;font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
+  .hitem{
+    display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;font-size:12px;
   }
-
-  .win-modal.lose {
-    border-color: #ef4444;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(239, 68, 68, 0.3);
+  .hitem:hover{background:#faf9f6}
+  .hitem time{flex:0 0 auto;color:var(--faint);font-family:var(--mono);font-size:11px}
+  .hitem a{
+    flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:11.5px;
   }
+  .hitem a:hover{color:var(--text)}
 
-  .modal-overlay.active .win-modal { transform: scale(1); }
-
-  .win-icon { font-size: 2.8rem; margin-bottom: 6px; }
-
-  .win-title { font-size: 1.4rem; font-weight: 800; color: #38bdf8; margin-bottom: 10px; }
-
-  .win-modal.lose .win-title { color: #ef4444; }
-
-  .win-stats {
-    background: rgba(15, 23, 42, 0.6);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 14px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    text-align: left;
+  .err-box{
+    padding:12px 14px;border-radius:9px;background:#fdf3f2;border:1px solid #f2d6d2;
+    color:#9c2f22;font-size:12.5px;line-height:1.65;margin-bottom:16px;
   }
+  .err-box code{font-family:var(--mono);font-size:11.5px}
 
-  .win-stat-item { display: flex; flex-direction: column; }
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:34px;transform:translate(-50%,14px);
+    background:var(--ink);color:#fff;padding:10px 17px;border-radius:10px;
+    font-size:13px;font-weight:500;opacity:0;pointer-events:none;
+    transition:opacity .22s,transform .22s;z-index:99;
+    box-shadow:0 16px 40px -16px rgba(0,0,0,.5);max-width:80vw;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
 
-  .win-stat-label { font-size: 0.72rem; color: var(--text-sub); }
-
-  .win-stat-val { font-size: 1.05rem; font-weight: 700; color: var(--accent-yellow); }
-
-  .modal-btns { display: flex; gap: 10px; justify-content: center; }
-
-  .legend-bar { display: flex; gap: 10px; font-size: 0.7rem; color: var(--text-sub); }
-
-  .legend-item { display: flex; align-items: center; gap: 4px; }
-
-  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  @media (max-width: 500px) {
-    .card-main-val { font-size: 1.1rem; }
-    .card-sub-info { font-size: 0.56rem; }
-    .stat-val { font-size: 0.95rem; }
-    h1 { font-size: 1rem; }
-    .grid-board { gap: 5px; }
-    .mode-btn { font-size: 0.68rem; padding: 4px 7px; }
+  .kbd{
+    display:inline-block;padding:1px 5px;border-radius:4px;border:1px solid var(--line-strong);
+    background:#fbfbf8;font-family:var(--mono);font-size:10.5px;color:var(--muted);
+    line-height:1.6;
+  }
+  @media (max-width:820px){
+    .workspace{grid-template-columns:1fr;grid-template-rows:1fr 1px 1fr}
+    .splitter{cursor:row-resize}
+    .brand small{display:none}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="title-bar">
-    <h1>🔥 前20号元素消消乐 · 进阶版</h1>
-    <button class="btn btn-restart" onclick="game.initLevel()">🔄 重新开始</button>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">&lt;/&gt;</span>
+    HTML2WEB <small>把 HTML 变成网址</small>
   </div>
-  <div class="stats-bar">
-    <div class="stat-card">
-      <span class="stat-label">当前关卡</span>
-      <span class="stat-val" id="valLevel">第1关</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">得分</span>
-      <span class="stat-val" id="valScore">0</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">连击</span>
-      <span class="stat-val" id="valCombo">0</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">剩余时间</span>
-      <span class="stat-val" id="valTimer">01:10</span>
-    </div>
-  </div>
+  <div class="pill live" id="statusPill" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc/raw/3e24f530e998af288bb342ed68675c7153242d02/index.html"><span class="dot"></span>已发布 · 11/03 08:53</div>
+  <div class="spacer"></div>
+  <button class="btn btn-ghost btn-sm" id="btnOpen">打开文件</button>
+  <button class="btn btn-ghost btn-sm" id="btnDownload">下载</button>
+  <button class="btn btn-ghost btn-sm" id="btnSelf" title="把 HTML2WEB 本身发布成一个网址，以后任何设备打开即可使用">发布本工具</button>
+  <button class="btn btn-ghost btn-sm" id="btnSettings">设置</button>
+  <button class="btn btn-primary" id="btnPublish">发布上线</button>
 </header>
 
-<div class="control-panel">
-  <div class="mode-selector">
-    <button class="mode-btn active" data-level="1" onclick="game.switchLevel(1)">① 1-10号</button>
-    <button class="mode-btn" data-level="2" onclick="game.switchLevel(2)">② 11-20号</button>
-    <button class="mode-btn" data-level="3" onclick="game.switchLevel(3)">③ 混合表征</button>
-    <button class="mode-btn" data-level="4" onclick="game.switchLevel(4)">④ 记忆翻牌</button>
-  </div>
-  <div class="legend-bar">
-    <div class="legend-item"><span class="legend-dot" style="background:var(--nonmetal)"></span>非金属</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--metal)"></span>金属</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--noble)"></span>稀有气体</div>
-  </div>
-</div>
+<main class="workspace" id="workspace">
+  <section class="pane">
+    <div class="pane-head">
+      <span class="pane-title">源码</span>
+      <span class="tab"><i></i>index.html</span>
+      <div class="spacer"></div>
+      <span style="font-size:11.5px;color:var(--faint)">拖入 .html 文件即可导入</span>
+    </div>
+    <div class="code-wrap" id="codeWrap">
+      <div class="gutter" id="gutter"><div id="gutterInner">1</div></div>
+      <textarea id="code" spellcheck="false" autocapitalize="off" autocorrect="off" wrap="off" aria-label="HTML 源码"></textarea>
+      <div class="drop-hint" id="dropHint">松开即可导入 HTML 文件</div>
+    </div>
+  </section>
 
-<main class="game-container">
-  <div class="timer-wrap"><div class="timer-bar" id="timerBar"></div></div>
-  <div id="comboPopup" class="combo-popup">COMBO x2!</div>
-  <div id="penaltyPopup" class="penalty-popup">-20分 / -3秒</div>
-  <div id="gridBoard" class="grid-board grid-4x5"></div>
+  <div class="splitter" id="splitter" role="separator" aria-orientation="vertical"></div>
+
+  <section class="pane">
+    <div class="pane-head">
+      <span class="pane-title">预览</span>
+      <div class="spacer"></div>
+      <div class="seg" id="deviceSeg">
+        <button data-dev="desktop" class="on">桌面</button>
+        <button data-dev="tablet">平板</button>
+        <button data-dev="phone">手机</button>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btnRefresh" title="重新渲染 (Ctrl+Enter)">刷新</button>
+      <button class="btn btn-ghost btn-sm" id="btnNewTab" title="在新标签页打开">新窗口</button>
+    </div>
+    <div class="stage" id="stage">
+      <iframe id="preview" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-pointer-lock" title="预览" srcdoc=""></iframe>
+    </div>
+  </section>
 </main>
 
-<div class="knowledge-card">
-  <div class="know-title">💡 化学速记:</div>
-  <div class="know-content" id="knowContent">限时挑战！点击两张相互匹配的卡片即可消除，配错扣分并扣除 3 秒。</div>
-</div>
+<footer class="statusbar">
+  <span><b id="stChars">0</b> 字符</span>
+  <span class="sep"></span>
+  <span><b id="stLines">1</b> 行</span>
+  <span class="sep"></span>
+  <span id="stSaved">已自动保存 · 11/03 08:52</span>
+  <div class="spacer" style="flex:1"></div>
+  <span id="stToken" class="status-ok">令牌已配置 · 可发布</span>
+</footer>
 
-<div class="modal-overlay" id="resultModal">
-  <div class="win-modal" id="resultCard">
-    <div class="win-icon" id="resIcon">🎉</div>
-    <div class="win-title" id="resTitle">挑战成功！</div>
-    <p style="color: var(--text-sub); font-size: 0.88rem; margin-bottom: 12px;" id="resDesc">你已完全掌握前 10 号元素！</p>
-    <div class="win-stats">
-      <div class="win-stat-item">
-        <span class="win-stat-label">最终得分</span>
-        <span class="win-stat-val" id="resScore">0</span>
+<!-- ======================= 发布面板 ======================= -->
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="关闭">×</button>
+
+    <!-- 步骤 1：配置 -->
+    <section id="stepConfig">
+      <h2 class="modal-title" id="modalTitle">HTML2WEB 已上线</h2>
+      <p class="modal-sub">全部免费、无服务器。两种方式按需选择，令牌只存在你本机浏览器。</p>
+
+      <label class="field-label">发布方式</label>
+      <div class="seg" id="modeSeg" style="padding:3px">
+        <button data-mode="gist" class="">快速上线</button>
+        <button data-mode="pages" class="on">正式网站</button>
       </div>
-      <div class="win-stat-item">
-        <span class="win-stat-label">用时</span>
-        <span class="win-stat-val" id="resTime">00:00</span>
+      <p class="hint" id="modeHint">GitHub Pages 正式网站：网址固定不变，内容随发布更新，无第三方渲染层。需 repo 权限令牌，全部免费。</p>
+
+      <div id="repoRow" style="margin-top:16px">
+        <label class="field-label" for="repoInput">仓库名（正式网址的一部分）</label>
+        <input id="repoInput" class="text-input" placeholder="html2web" autocomplete="off" spellcheck="false">
+        <p class="hint">网址形如 <code>你的用户名.github.io/仓库名/</code>，<b>固定不变</b>，内容随每次发布自动更新。首次发布后 GitHub 需 1–2 分钟构建。</p>
       </div>
-      <div class="win-stat-item">
-        <span class="win-stat-label">最高连击</span>
-        <span class="win-stat-val" id="resCombo">0 连击</span>
+
+      <label class="field-label" for="tokenInput" style="margin-top:20px">GitHub 访问令牌 · Personal Access Token</label>
+      <div class="token-row">
+        <input id="tokenInput" type="text" placeholder="ghp_xxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+        <button class="btn btn-sm" id="toggleToken" type="button" style="height:36px;padding:0 12px">隐藏</button>
       </div>
-      <div class="win-stat-item">
-        <span class="win-stat-label">评价</span>
-        <span class="win-stat-val" id="resRank">化学新星 ✨</span>
+      <a class="help-link" id="tokenHelp" href="https://github.com/settings/tokens/new?scopes=repo,gist&amp;description=HTML2WEB" target="_blank" rel="noopener">去创建一个勾选 repo 权限的令牌（fine-grained 需 Contents + Administration）→</a>
+
+      <div id="visBlock" style="margin-top:20px" hidden="">
+        <label class="field-label">可见性</label>
+        <div class="seg" id="visSeg" style="padding:3px">
+          <button data-vis="public" class="on">公开</button>
+          <button data-vis="secret">私密</button>
+        </div>
+        <p class="hint" id="visHint">公开 Gist 会出现在你的 Gist 主页，任何人拿到链接都能访问。</p>
       </div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn" id="resPrimaryBtn" onclick="game.modalPrimary()">下一关</button>
-      <button class="btn btn-restart" onclick="game.closeModal()">返回查看</button>
-    </div>
+
+      <div class="modal-actions">
+        <button class="btn" id="cancelBtn">取消</button>
+        <button class="btn btn-primary" id="doPublish">保存并发布</button>
+      </div>
+    </section>
+
+    <!-- 步骤 2：进行中 -->
+    <section id="stepLoading" hidden="">
+      <h2 class="modal-title">正在发布</h2>
+      <p class="modal-sub" id="loadingSub">通常 1–3 秒完成。</p>
+      <ul class="steps" id="stepsList"><li class=""><span class="tick"></span>验证 GitHub 身份</li><li class=""><span class="tick"></span>上传 index.html 到 Gist</li><li class=""><span class="tick"></span>生成可访问链接</li></ul>
+      <div id="loadingErr"></div>
+    </section>
+
+    <!-- 步骤 3：结果 -->
+    <section id="stepResult" hidden="">
+      <h2 class="modal-title">已上线</h2>
+      <p class="modal-sub" id="resultSub">把下面这个网址收藏起来。以后手机、任何电脑打开它，就是完整的 HTML2WEB 工具。</p>
+
+      <div class="link-box">
+        <a id="mainLink" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc/raw/3e24f530e998af288bb342ed68675c7153242d02/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc/raw/3e24f530e998af288bb342ed68675c7153242d02/index.html">https://htmlpreview.github.io/?https://gist.githubuserconte…</a>
+        <button class="btn btn-sm" id="copyMain">复制</button>
+      </div>
+
+      <div class="alt-links">
+        <div class="alt-row"><span id="altLabel">原始文件</span><a id="altLink" target="_blank" rel="noopener" href="https://gist.githubusercontent.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc/raw/3e24f530e998af288bb342ed68675c7153242d02/index.html" title="https://gist.githubusercontent.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc/raw/3e24f530e998af288bb342ed68675c7153242d02/index.html">https://gist.githubusercontent.com/zl1862004/db6015d1c9…</a></div>
+        <div class="alt-row"><span>管理页面</span><a id="gistLink" target="_blank" rel="noopener" href="https://gist.github.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc" title="https://gist.github.com/zl1862004/db6015d1c91168d6ddc5bce6511354dc">https://gist.github.com/zl1862004/db6015d1c91168d6ddc5b…</a></div>
+        <div class="alt-row" id="buildRow" hidden="">
+          <span>部署状态</span>
+          <span id="buildStatus" style="font-size:12px;color:var(--muted)" class="">—</span>
+          <button class="btn btn-sm" id="btnBuild" style="margin-left:auto">刷新</button>
+        </div>
+      </div>
+      <p class="hint" id="resultHint">主链接由 htmlpreview.github.io 渲染，打开即显示页面。若页面里用了相对路径的图片 / CSS，请改成绝对地址或内联，否则会加载失败。</p>
+
+      <div class="modal-actions">
+        <button class="btn" id="closeResult">完成</button>
+        <button class="btn btn-primary" id="openMain">打开页面</button>
+      </div>
+
+      <div class="history" id="historyWrap">
+        <h3>最近发布</h3>
+        <div id="historyList"><div class="hitem"><time>11/03 08:50</time><a href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/8431f27b0b39c01f633e28c2ac68f860/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/8431f27b0b39c01f633e28c2ac68f860/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html">htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/8431f27b0b39c01f633e28c2ac68f860/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html</a><button class="btn btn-sm btn-ghost">复制</button></div><div class="hitem"><time>11/03 08:49</time><a href="https://zl1862004.github.io/html222web/" target="_blank" rel="noopener" title="https://zl1862004.github.io/html222web/">zl1862004.github.io/html222web/</a><button class="btn btn-sm btn-ghost">复制</button></div><div class="hitem"><time>11/03 08:48</time><a href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/c9a1d75370973f2a41239e50aa3c7e3c/raw/fe852b21d6637bdc6ff2cebf49c7cbe1b3c00363/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/c9a1d75370973f2a41239e50aa3c7e3c/raw/fe852b21d6637bdc6ff2cebf49c7cbe1b3c00363/index.html">htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/c9a1d75370973f2a41239e50aa3c7e3c/raw/fe852b21d6637bdc6ff2cebf49c7cbe1b3c00363/index.html</a><button class="btn btn-sm btn-ghost">复制</button></div><div class="hitem"><time>11/03 08:19</time><a href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/92db31ace26c161bc4f45d94c55a3f01/raw/c6658e95a67bbd7badfe0048e205b896ddb5c5fe/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/92db31ace26c161bc4f45d94c55a3f01/raw/c6658e95a67bbd7badfe0048e205b896ddb5c5fe/index.html">htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/92db31ace26c161bc4f45d94c55a3f01/raw/c6658e95a67bbd7badfe0048e205b896ddb5c5fe/index.html</a><button class="btn btn-sm btn-ghost">复制</button></div><div class="hitem"><time>11/03 08:18</time><a href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/f376df916753e14d752047f2924f47a9/raw/ca6c01af8bd3fc00fe71fdb9e34aba527942974c/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/f376df916753e14d752047f2924f47a9/raw/ca6c01af8bd3fc00fe71fdb9e34aba527942974c/index.html">htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/f376df916753e14d752047f2924f47a9/raw/ca6c01af8bd3fc00fe71fdb9e34aba527942974c/index.html</a><button class="btn btn-sm btn-ghost">复制</button></div><div class="hitem"><time>11/02 17:21</time><a href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/d76af7896e8b7d43d457e0f15c5a7d2f/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html" target="_blank" rel="noopener" title="https://htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/d76af7896e8b7d43d457e0f15c5a7d2f/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html">htmlpreview.github.io/?https://gist.githubusercontent.com/zl1862004/d76af7896e8b7d43d457e0f15c5a7d2f/raw/bc1f42cf5e0df813c502044c27400b940923e329/index.html</a><button class="btn btn-sm btn-ghost">复制</button></div></div>
+      </div>
+    </section>
   </div>
 </div>
 
+<div class="toast" id="toast">源码是空的，没什么可发布的</div>
+
 <script>
-/* ============ 元素数据库（前20号元素） ============ */
-const ELEMENTS_DB = [
-  { z: 1, symbol: 'H', name: '氢', mass: 1.008, type: 'nonmetal', desc: '最轻的气体，常见化合价+1' },
-  { z: 2, symbol: 'He', name: '氦', mass: 4.003, type: 'noble', desc: '稀有气体，最外层2个电子稳定结构' },
-  { z: 3, symbol: 'Li', name: '锂', mass: 6.941, type: 'metal', desc: '密度最小的金属元素，很活泼' },
-  { z: 4, symbol: 'Be', name: '铍', mass: 9.012, type: 'metal', desc: '第二周期碱土金属' },
-  { z: 5, symbol: 'B', name: '硼', mass: 10.81, type: 'nonmetal', desc: '黑色或银灰色固体，可作半导体材料' },
-  { z: 6, symbol: 'C', name: '碳', mass: 12.01, type: 'nonmetal', desc: '构成有机物骨架，常见+2、+4价' },
-  { z: 7, symbol: 'N', name: '氮', mass: 14.01, type: 'nonmetal', desc: '空气中含量最高的气体（约78%）' },
-  { z: 8, symbol: 'O', name: '氧', mass: 16.00, type: 'nonmetal', desc: '地壳中含量最多的元素，支持呼吸' },
-  { z: 9, symbol: 'F', name: '氟', mass: 19.00, type: 'nonmetal', desc: '非金属性最强的元素' },
-  { z: 10, symbol: 'Ne', name: '氖', mass: 20.18, type: 'noble', desc: '通电发出红光，常做霓虹灯' },
-  { z: 11, symbol: 'Na', name: '钠', mass: 22.99, type: 'metal', desc: '金属活动性强，常保存在煤油中' },
-  { z: 12, symbol: 'Mg', name: '镁', mass: 24.31, type: 'metal', desc: '在空气中燃烧发出耀眼白光' },
-  { z: 13, symbol: 'Al', name: '铝', mass: 26.98, type: 'metal', desc: '地壳中含量最多的金属元素' },
-  { z: 14, symbol: 'Si', name: '硅', mass: 28.09, type: 'nonmetal', desc: '芯片关键材料，地壳含量居第二' },
-  { z: 15, symbol: 'P', name: '磷', mass: 30.97, type: 'nonmetal', desc: '有白磷、红磷等同素异形体' },
-  { z: 16, symbol: 'S', name: '硫', mass: 32.06, type: 'nonmetal', desc: '淡黄色固体，燃烧生成有刺激性气味的二氧化硫' },
-  { z: 17, symbol: 'Cl', name: '氯', mass: 35.45, type: 'nonmetal', desc: '黄绿色有毒气体，氧化性强' },
-  { z: 18, symbol: 'Ar', name: '氩', mass: 39.95, type: 'noble', desc: '空气中含量最多的稀有气体（约0.93%）' },
-  { z: 19, symbol: 'K', name: '钾', mass: 39.10, type: 'metal', desc: '极活泼的碱金属元素' },
-  { z: 20, symbol: 'Ca', name: '钙', mass: 40.08, type: 'metal', desc: '人体骨骼和牙齿的主要无机成分' }
-];
+(function () {
+  "use strict";
 
-/* ============ 关卡配置 ============ */
-const LEVEL_CONFIG = {
-  1: { name: '第1关', title: '1-10号元素',      limit: 70,  pool: 'first10',  reprMode: 'simple', memory: false },
-  2: { name: '第2关', title: '11-20号元素',     limit: 70,  pool: 'second10', reprMode: 'simple', memory: false },
-  3: { name: '第3关', title: '1-20号 混合表征', limit: 90,  pool: 'random12', reprMode: 'mixed',  memory: false },
-  4: { name: '第4关', title: '1-20号 记忆翻牌', limit: 120, pool: 'random12', reprMode: 'simple', memory: true }
-};
+  /* ------------------------------------------------------------------ *
+   *  常量与状态
+   * ------------------------------------------------------------------ */
+  var LS = {
+    code: "h2w.code",
+    token: "h2w.token",
+    vis: "h2w.visibility",
+    mode: "h2w.mode",
+    repo: "h2w.repo",
+    history: "h2w.history",
+    left: "h2w.left"
+  };
 
-/* ============ 音效（原生合成，零外链） ============ */
-class SoundFx {
-  constructor() { this.ctx = null; }
-  init() {
-    if (!this.ctx) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (AC) this.ctx = new AC();
+  var SAMPLE = [
+    '<!doctype html>',
+    '<html lang="zh-CN">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">',
+    '<title>Hello, Web</title>',
+    '<style>',
+    '  *{box-sizing:border-box}',
+    '  body{',
+    '    margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;',
+    '    font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;',
+    '    background:radial-gradient(circle at 25% 15%,#eef2ff,#fafaf7 62%);',
+    '    color:#14140f;',
+    '  }',
+    '  .card{',
+    '    max-width:440px;padding:48px 44px;border-radius:20px;background:#fff;',
+    '    border:1px solid #e8e8e2;text-align:center;',
+    '    box-shadow:0 24px 70px -34px rgba(20,20,15,.4);',
+    '  }',
+    '  h1{margin:0 0 14px;font-size:28px;letter-spacing:-.025em;font-weight:650}',
+    '  p{margin:0 0 6px;color:#7c7c74;font-size:14.5px;line-height:1.75}',
+    '  .tag{',
+    '    display:inline-flex;align-items:center;gap:7px;margin-bottom:22px;',
+    '    padding:5px 12px;border-radius:999px;background:#e7f5ee;color:#0f7a4d;',
+    '    font-size:12px;font-weight:600;letter-spacing:.02em;',
+    '  }',
+    '  .tag i{width:6px;height:6px;border-radius:50%;background:currentColor}',
+    '</style>',
+    '</head>',
+    '<body>',
+    '  <div class="card">',
+    '    <div class="tag"><i></i>READY TO SHIP</div>',
+    '    <h1>Hello, Web</h1>',
+    '    <p>左边改代码，右边即时预览。</p>',
+    '    <p>点右上角「发布上线」，它就会变成一个真实的网址。</p>',
+    '  </div>',
+    '</body>',
+    '</html>'
+  ].join("\n");
+
+  var el = {
+    code: document.getElementById("code"),
+    gutter: document.getElementById("gutter"),
+    gutterInner: document.getElementById("gutterInner"),
+    preview: document.getElementById("preview"),
+    stage: document.getElementById("stage"),
+    workspace: document.getElementById("workspace"),
+    codeWrap: document.getElementById("codeWrap"),
+    splitter: document.getElementById("splitter"),
+    statusPill: document.getElementById("statusPill"),
+    stChars: document.getElementById("stChars"),
+    stLines: document.getElementById("stLines"),
+    stSaved: document.getElementById("stSaved"),
+    stToken: document.getElementById("stToken"),
+    overlay: document.getElementById("overlay"),
+    modal: document.querySelector(".modal"),
+    stepConfig: document.getElementById("stepConfig"),
+    stepLoading: document.getElementById("stepLoading"),
+    stepResult: document.getElementById("stepResult"),
+    tokenInput: document.getElementById("tokenInput"),
+    visSeg: document.getElementById("visSeg"),
+    visHint: document.getElementById("visHint"),
+    doPublish: document.getElementById("doPublish"),
+    mainLink: document.getElementById("mainLink"),
+    altLink: document.getElementById("altLink"),
+    gistLink: document.getElementById("gistLink"),
+    historyWrap: document.getElementById("historyWrap"),
+    historyList: document.getElementById("historyList"),
+    loadingErr: document.getElementById("loadingErr"),
+    loadingSub: document.getElementById("loadingSub"),
+    stepsList: document.getElementById("stepsList"),
+    modeSeg: document.getElementById("modeSeg"),
+    modeHint: document.getElementById("modeHint"),
+    repoRow: document.getElementById("repoRow"),
+    repoInput: document.getElementById("repoInput"),
+    tokenHelp: document.getElementById("tokenHelp"),
+    visBlock: document.getElementById("visBlock"),
+    resultSub: document.getElementById("resultSub"),
+    resultHint: document.getElementById("resultHint"),
+    altLabel: document.getElementById("altLabel"),
+    buildRow: document.getElementById("buildRow"),
+    buildStatus: document.getElementById("buildStatus"),
+    dropHint: document.getElementById("dropHint"),
+    toast: document.getElementById("toast")
+  };
+
+  var state = {
+    token: localStorage.getItem(LS.token) || "",
+    visibility: localStorage.getItem(LS.vis) || "public",
+    mode: localStorage.getItem(LS.mode) || "gist",
+    repoName: localStorage.getItem(LS.repo) || "html2web",
+    published: null,
+    busy: false,
+    pendingSelf: false
+  };
+
+  /* ------------------------------------------------------------------ *
+   *  工具函数
+   * ------------------------------------------------------------------ */
+  function toast(msg, ms) {
+    el.toast.textContent = msg;
+    el.toast.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () {
+      el.toast.classList.remove("show");
+    }, ms || 2200);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        return legacyCopy(text);
+      });
     }
-  }
-  play(freq, type, duration, gainVal) {
-    try {
-      this.init();
-      if (!this.ctx) return;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-      gain.gain.setValueAtTime(gainVal || 0.15, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + duration);
-    } catch (e) { /* 音效异常不影响主流程 */ }
-  }
-  click() { this.play(440, 'sine', 0.07, 0.08); }
-  flip()  { this.play(620, 'sine', 0.06, 0.07); }
-  match(combo) {
-    const step = Math.min(combo, 8);
-    this.play(523.25 * Math.pow(1.12, step), 'triangle', 0.24, 0.18);
-    setTimeout(() => this.play(523.25 * Math.pow(1.12, step + 2), 'sine', 0.22, 0.13), 60);
-  }
-  wrong() {
-    this.play(180, 'sawtooth', 0.22, 0.16);
-    setTimeout(() => this.play(140, 'sawtooth', 0.2, 0.16), 80);
-  }
-  win() {
-    [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
-      setTimeout(() => this.play(f, 'triangle', 0.32, 0.18), i * 100);
-    });
-  }
-  lose() {
-    [392, 330, 262, 196].forEach((f, i) => {
-      setTimeout(() => this.play(f, 'sawtooth', 0.32, 0.16), i * 130);
-    });
-  }
-}
-
-const sfx = new SoundFx();
-
-/* ============ 游戏主控 ============ */
-class ElementGame {
-  constructor() {
-    this.currentLevel = 1;
-    this.cards = [];
-    this.selectedCards = [];
-    this.score = 0;
-    this.combo = 0;
-    this.maxCombo = 0;
-    this.matchedPairs = 0;
-    this.totalPairs = 0;
-    this.elapsed = 0;
-    this.remaining = 70;
-    this.timeLimit = 70;
-    this.timerInterval = null;
-    this.isLocked = false;
-    this.gameOver = false;
-    this.memoryMode = false;
-    this.modalNextLevel = 1;
+    return Promise.resolve(legacyCopy(text));
   }
 
-  /* ---------- 初始化关卡 ---------- */
-  initLevel(level) {
-    if (typeof level === 'number') this.currentLevel = level;
-    const cfg = LEVEL_CONFIG[this.currentLevel];
+  function legacyCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.top = "-1000px";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
 
-    this.clearTimer();
-    this.gameOver = false;
-    this.isLocked = false;
-    this.selectedCards = [];
-    this.combo = 0;
-    this.maxCombo = 0;
-    this.matchedPairs = 0;
-    this.score = 0;
-    this.elapsed = 0;
-    this.memoryMode = cfg.memory;
-    this.timeLimit = cfg.limit;
-    this.remaining = cfg.limit;
+  function shorten(url, max) {
+    max = max || 46;
+    return url.length <= max ? url : url.slice(0, max - 1) + "…";
+  }
 
-    document.getElementById('valLevel').textContent = cfg.name;
-    document.getElementById('knowContent').textContent = cfg.memory
-      ? '记忆翻牌：卡片背面朝上，翻开两张同一元素的卡片才能消除！'
-      : '限时挑战！点击两张相互匹配的卡片即可消除，配错扣 20 分并扣 3 秒。';
+  function stamp() {
+    var d = new Date();
+    function p(n) { return n < 10 ? "0" + n : "" + n; }
+    return p(d.getMonth() + 1) + "/" + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
 
-    // 选取元素池
-    let pool;
-    if (cfg.pool === 'first10') {
-      pool = ELEMENTS_DB.slice(0, 10);
-    } else if (cfg.pool === 'second10') {
-      pool = ELEMENTS_DB.slice(10, 20);
-    } else {
-      pool = [...ELEMENTS_DB];
-      this.shuffle(pool);
-      pool = pool.slice(0, 12);
-    }
+  /* ------------------------------------------------------------------ *
+   *  编辑器
+   * ------------------------------------------------------------------ */
+  function updateGutter() {
+    var lines = el.code.value.split("\n").length;
+    var out = [];
+    for (var i = 1; i <= lines; i++) out.push(i);
+    el.gutterInner.textContent = out.join("\n");
+  }
 
-    // 生成卡片
-    const cardsData = [];
-    pool.forEach((elem) => {
-      let types;
-      if (cfg.reprMode === 'mixed') {
-        const all = ['symbol', 'name', 'number'];
-        this.shuffle(all);
-        types = all.slice(0, 2);
-      } else {
-        types = ['symbol', 'name'];
+  function updateStats() {
+    var v = el.code.value;
+    var lines = v.split("\n").length;
+    el.stChars.textContent = v.length.toLocaleString("en-US");
+    el.stLines.textContent = lines;
+    updateGutter();
+  }
+
+  var saveTimer = null;
+  function scheduleSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      try {
+        localStorage.setItem(LS.code, el.code.value);
+        el.stSaved.textContent = "已自动保存 · " + stamp();
+      } catch (e) {
+        el.stSaved.textContent = "保存失败（存储空间不足）";
       }
-      types.forEach((t) => cardsData.push(this.buildCard(elem, t)));
-    });
-
-    this.totalPairs = pool.length;
-    this.shuffle(cardsData);
-    this.cards = cardsData;
-
-    this.renderBoard();
-    this.updateStats();
-    this.updateTimerUI();
-    this.startTimer();
+    }, 700);
   }
 
-  /* ---------- 构造单张卡片 ---------- */
-  buildCard(elem, cardType) {
-    let displayMain = '', displaySub = '', tagName = '';
-    if (cardType === 'symbol') {
-      displayMain = elem.symbol;
-      displaySub = '元素符号';
-      tagName = '符号';
-    } else if (cardType === 'name') {
-      displayMain = elem.name;
-      displaySub = '元素名称';
-      tagName = '中文';
-    } else {
-      displayMain = String(elem.z);
-      displaySub = '原子序数';
-      tagName = '序数';
+  var renderTimer = null;
+  function scheduleRender() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(render, 520);
+  }
+
+  function render() {
+    el.preview.srcdoc = el.code.value;
+  }
+
+  el.code.addEventListener("input", function () {
+    updateStats();
+    scheduleSave();
+    scheduleRender();
+  });
+
+  el.code.addEventListener("scroll", function () {
+    el.gutter.scrollTop = el.code.scrollTop;
+  });
+
+  el.code.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      var s = el.code.selectionStart;
+      var en = el.code.selectionEnd;
+      el.code.setRangeText("  ", s, en, "end");
+      updateStats();
+      scheduleSave();
+      scheduleRender();
     }
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      render();
+      toast("已重新渲染");
+    }
+    if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
+      e.preventDefault();
+      try { localStorage.setItem(LS.code, el.code.value); } catch (err) {}
+      toast("已保存到本机");
+    }
+    if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) {
+      e.preventDefault();
+      openPublish();
+    }
+  });
+
+  /* 代码折叠区滚动同步 */
+  el.code.addEventListener("wheel", function () {
+    requestAnimationFrame(function () {
+      el.gutter.scrollTop = el.code.scrollTop;
+    });
+  }, { passive: true });
+
+  /* ------------------------------------------------------------------ *
+   *  文件导入 / 下载
+   * ------------------------------------------------------------------ */
+  function importFile(file) {
+    if (!file) return;
+    if (!/\.(html?|htm)$/i.test(file.name)) {
+      toast("请选择 .html 文件");
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function () {
+      el.code.value = String(reader.result || "");
+      updateStats();
+      scheduleSave();
+      render();
+      toast("已导入 " + file.name);
+    };
+    reader.readAsText(file, "utf-8");
+  }
+
+  var fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".html,.htm,text/html";
+  fileInput.style.display = "none";
+  document.body.appendChild(fileInput);
+  fileInput.addEventListener("change", function () {
+    importFile(fileInput.files && fileInput.files[0]);
+    fileInput.value = "";
+  });
+
+  document.getElementById("btnOpen").addEventListener("click", function () {
+    fileInput.click();
+  });
+
+  document.getElementById("btnDownload").addEventListener("click", function () {
+    var blob = new Blob([el.code.value], { type: "text/html;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "index.html";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
+    toast("已下载 index.html");
+  });
+
+  /* 拖拽 */
+  var dragDepth = 0;
+  el.codeWrap.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    el.dropHint.classList.add("on");
+  });
+  el.codeWrap.addEventListener("dragleave", function () {
+    el.dropHint.classList.remove("on");
+  });
+  el.codeWrap.addEventListener("drop", function (e) {
+    e.preventDefault();
+    el.dropHint.classList.remove("on");
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+      importFile(e.dataTransfer.files[0]);
+    }
+  });
+  window.addEventListener("dragover", function (e) { e.preventDefault(); });
+  window.addEventListener("drop", function (e) { e.preventDefault(); });
+
+  /* ------------------------------------------------------------------ *
+   *  预览工具栏
+   * ------------------------------------------------------------------ */
+  document.getElementById("btnRefresh").addEventListener("click", function () {
+    render();
+    toast("已重新渲染");
+  });
+
+  document.getElementById("btnNewTab").addEventListener("click", function () {
+    var blob = new Blob([el.code.value], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+    setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+  });
+
+  document.getElementById("deviceSeg").addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-dev]");
+    if (!btn) return;
+    this.querySelectorAll("button").forEach(function (b) { b.classList.remove("on"); });
+    btn.classList.add("on");
+    el.stage.classList.remove("device", "tablet");
+    if (btn.dataset.dev === "phone") el.stage.classList.add("device");
+    if (btn.dataset.dev === "tablet") el.stage.classList.add("tablet");
+  });
+
+  /* ------------------------------------------------------------------ *
+   *  分隔条拖动
+   * ------------------------------------------------------------------ */
+  (function () {
+    var dragging = false;
+    var saved = localStorage.getItem(LS.left);
+    if (saved) el.workspace.style.setProperty("--left", saved);
+
+    el.splitter.addEventListener("pointerdown", function (e) {
+      if (window.innerWidth <= 820) return;
+      dragging = true;
+      el.splitter.classList.add("dragging");
+      el.splitter.setPointerCapture(e.pointerId);
+      document.body.style.userSelect = "none";
+    });
+    el.splitter.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var rect = el.workspace.getBoundingClientRect();
+      var w = ((e.clientX - rect.left) / rect.width) * 100;
+      w = Math.min(78, Math.max(22, w));
+      el.workspace.style.setProperty("--left", w.toFixed(2) + "%");
+    });
+    el.splitter.addEventListener("pointerup", function (e) {
+      if (!dragging) return;
+      dragging = false;
+      el.splitter.classList.remove("dragging");
+      document.body.style.userSelect = "";
+      var cur = el.workspace.style.getPropertyValue("--left");
+      if (cur) localStorage.setItem(LS.left, cur);
+    });
+  })();
+
+  /* ------------------------------------------------------------------ *
+   *  发布面板：开关与切换
+   * ------------------------------------------------------------------ */
+  function showStep(name) {
+    el.stepConfig.hidden = name !== "config";
+    el.stepLoading.hidden = name !== "loading";
+    el.stepResult.hidden = name !== "result";
+  }
+
+  function openPublish() {
+    el.overlay.hidden = false;
+    el.loadingErr.innerHTML = "";
+    resetSteps();
+    if (state.token) {
+      // 已配置过令牌，直接进发布
+      startPublish(el.code.value, false);
+    } else {
+      el.tokenInput.value = "";
+      syncVisUI();
+      showStep("config");
+      setTimeout(function () { el.tokenInput.focus(); }, 60);
+    }
+  }
+
+  /* 把本工具自己发布上线（自举） */
+  function publishSelf() {
+    var code = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    startPublish(code, true);
+  }
+
+  document.getElementById("btnSelf").addEventListener("click", function () {
+    if (state.busy) return;
+    if (state.token) {
+      el.overlay.hidden = false;
+      el.loadingErr.innerHTML = "";
+      resetSteps();
+      publishSelf();
+    } else {
+      state.pendingSelf = true;
+      toast("先配置 GitHub 令牌，保存后将自动发布本工具", 3000);
+      el.overlay.hidden = false;
+      el.loadingErr.innerHTML = "";
+      resetSteps();
+      el.tokenInput.value = "";
+      syncVisUI();
+      showStep("config");
+      setTimeout(function () { el.tokenInput.focus(); }, 60);
+    }
+  });
+
+  function openSettings() {
+    el.overlay.hidden = false;
+    el.tokenInput.value = state.token;
+    syncVisUI();
+    showStep("config");
+    setTimeout(function () { el.tokenInput.focus(); }, 60);
+  }
+
+  function closeOverlay() {
+    el.overlay.hidden = true;
+    el.busy = false;
+  }
+
+  document.getElementById("modalClose").addEventListener("click", closeOverlay);
+  document.getElementById("cancelBtn").addEventListener("click", closeOverlay);
+  document.getElementById("closeResult").addEventListener("click", closeOverlay);
+  el.overlay.addEventListener("mousedown", function (e) {
+    if (e.target === el.overlay && !state.busy) closeOverlay();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !el.overlay.hidden && !state.busy) closeOverlay();
+  });
+
+  document.getElementById("toggleToken").addEventListener("click", function () {
+    var on = el.tokenInput.type === "password";
+    el.tokenInput.type = on ? "text" : "password";
+    this.textContent = on ? "隐藏" : "显示";
+  });
+
+  function syncVisUI() {
+    el.visSeg.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.vis === state.visibility);
+    });
+    el.visHint.textContent = state.visibility === "public"
+      ? "公开 Gist 会出现在你的 Gist 主页，任何人拿到链接都能访问。"
+      : "私密 Gist 不会公开列出，但知道链接的人依然可以打开。";
+  }
+
+  el.visSeg.addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-vis]");
+    if (!btn) return;
+    state.visibility = btn.dataset.vis;
+    localStorage.setItem(LS.vis, state.visibility);
+    syncVisUI();
+  });
+
+  function syncModeUI() {
+    var pages = state.mode === "pages";
+    el.modeSeg.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.mode === state.mode);
+    });
+    el.repoRow.hidden = !pages;
+    el.visBlock.hidden = pages;
+    el.modeHint.textContent = pages
+      ? "GitHub Pages 正式网站：网址固定不变，内容随发布更新，无第三方渲染层。需 repo 权限令牌，全部免费。"
+      : "用 Gist 承载 + CDN 渲染，约 3 秒上线；每次发布生成新链接。";
+    el.tokenHelp.href = pages
+      ? "https://github.com/settings/tokens/new?scopes=repo,gist&description=HTML2WEB"
+      : "https://github.com/settings/tokens/new?scopes=gist&description=HTML2WEB";
+    el.tokenHelp.textContent = pages
+      ? "去创建一个勾选 repo 权限的令牌（fine-grained 需 Contents + Administration）→"
+      : "去创建一个只勾选 gist 权限的令牌 →";
+  }
+
+  el.modeSeg.addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-mode]");
+    if (!btn) return;
+    state.mode = btn.dataset.mode;
+    localStorage.setItem(LS.mode, state.mode);
+    syncModeUI();
+  });
+
+  el.repoInput.addEventListener("input", function () {
+    var v = this.value.trim();
+    state.repoName = v || "html2web";
+    localStorage.setItem(LS.repo, state.repoName);
+  });
+
+  el.doPublish.addEventListener("click", function () {
+    var t = el.tokenInput.value.trim();
+    if (!t) {
+      el.tokenInput.focus();
+      toast("请先填入 GitHub 令牌");
+      return;
+    }
+    if (!/^(ghp_|github_pat_|gho_)/.test(t) && t.length < 20) {
+      toast("令牌格式看起来不对");
+      return;
+    }
+    if (state.mode === "pages") {
+      var repo = el.repoInput.value.trim() || "html2web";
+      if (!/^[a-zA-Z0-9_.-]{1,80}$/.test(repo)) {
+        el.repoInput.focus();
+        toast("仓库名只能包含字母、数字、- _ .");
+        return;
+      }
+      state.repoName = repo;
+      localStorage.setItem(LS.repo, repo);
+    }
+    state.token = t;
+    localStorage.setItem(LS.token, t);
+    updateTokenStatus();
+    if (state.pendingSelf) {
+      state.pendingSelf = false;
+      publishSelf();
+    } else {
+      startPublish(el.code.value, false);
+    }
+  });
+
+  document.getElementById("btnPublish").addEventListener("click", openPublish);
+  document.getElementById("btnSettings").addEventListener("click", openSettings);
+
+  /* ------------------------------------------------------------------ *
+   *  发布流程
+   * ------------------------------------------------------------------ */
+  function resetSteps() {
+    el.stepsList.querySelectorAll("li").forEach(function (li) { li.className = ""; });
+  }
+
+  function setSteps(arr, sub) {
+    el.stepsList.innerHTML = "";
+    arr.forEach(function (txt) {
+      var li = document.createElement("li");
+      var tick = document.createElement("span");
+      tick.className = "tick";
+      li.appendChild(tick);
+      li.appendChild(document.createTextNode(txt));
+      el.stepsList.appendChild(li);
+    });
+    el.loadingSub.textContent = sub || "通常 1–3 秒完成。";
+  }
+
+  function markStep(idx, cls) {
+    var li = el.stepsList.children[idx];
+    if (li) li.className = cls;
+  }
+
+  function updateTokenStatus() {
+    if (state.token) {
+      el.stToken.textContent = "令牌已配置 · 可发布";
+      el.stToken.classList.add("status-ok");
+    } else {
+      el.stToken.textContent = "未配置发布令牌";
+      el.stToken.classList.remove("status-ok");
+    }
+  }
+
+  function friendlyError(res, data) {
+    if (res.status === 401) return "令牌无效或已过期。请重新生成一个对应权限的令牌。";
+    if (res.status === 403) return "被 GitHub 拒绝：令牌权限不足（Pages 模式需 repo 权限；fine-grained 令牌需 Contents + Administration），或触发频率限制。";
+    if (res.status === 404) return "接口返回 404，请检查令牌权限与仓库名。";
+    if (res.status === 422) return "提交内容被拒绝：" + ((data && data.message) || "内容为空或过大");
+    return "GitHub 返回错误 " + res.status + "：" + ((data && data.message) || "未知原因");
+  }
+
+  async function ghFetch(url, options) {
+    var res = await fetch(url, options);
+    var data = null;
+    try { data = await res.json(); } catch (e) {}
+    if (!res.ok) {
+      var err = new Error(friendlyError(res, data));
+      err.status = res.status;
+      err.data = data;
+      throw err;
+    }
+    return data;
+  }
+
+  function ghHeaders(json) {
+    var h = {
+      Authorization: "Bearer " + state.token,
+      Accept: "application/vnd.github+json"
+    };
+    if (json) h["Content-Type"] = "application/json";
+    return h;
+  }
+
+  function utf8ToBase64(str) {
+    var bytes = new TextEncoder().encode(str);
+    var bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+
+  /* ---------- 链路一：Gist 快速上线 ---------- */
+  async function publishGist(code) {
+    setSteps(["验证 GitHub 身份", "上传 index.html 到 Gist", "生成可访问链接"]);
+    resetSteps();
+
+    markStep(0, "run");
+    var me = await ghFetch("https://api.github.com/user", { headers: ghHeaders(false) });
+    markStep(0, "done");
+
+    markStep(1, "run");
+    var payload = {
+      description: "HTML2WEB · " + new Date().toISOString().slice(0, 16).replace("T", " "),
+      public: state.visibility === "public",
+      files: { "index.html": { content: code } }
+    };
+    var gist = await ghFetch("https://api.github.com/gists", {
+      method: "POST",
+      headers: ghHeaders(true),
+      body: JSON.stringify(payload)
+    });
+    markStep(1, "done");
+
+    markStep(2, "run");
+    var rawUrl = gist.files && gist.files["index.html"] && gist.files["index.html"].raw_url;
+    if (!rawUrl) rawUrl = gist.html_url;
+
+    /* 主链接：htmlpreview 直接渲染，无需确认页。
+       gist.githack 已废弃——其反钓鱼确认页 POST 返回 403，浏览器导航不可用 */
+    var primary = "https://htmlpreview.github.io/?" + rawUrl;
+    var alt = rawUrl;
+    markStep(2, "done");
+
     return {
-      elemZ: elem.z,
-      cardType: cardType,
-      displayMain: displayMain,
-      displaySub: displaySub,
-      tagName: tagName,
-      elemData: elem
+      mode: "gist",
+      main: primary,
+      alt: alt,
+      admin: gist.html_url,
+      owner: me.login
     };
   }
 
-  /* ---------- 渲染棋盘 ---------- */
-  renderBoard() {
-    const board = document.getElementById('gridBoard');
-    board.innerHTML = '';
-    const n = this.cards.length;
-    board.className = 'grid-board ' + (n <= 20 ? 'grid-4x5' : 'grid-6x4');
+  /* ---------- 链路二：GitHub Pages 正式网站 ---------- */
+  async function publishPages(code) {
+    var repo = (state.repoName || "html2web").trim();
+    setSteps([
+      "验证 GitHub 身份",
+      "准备仓库 " + repo,
+      "上传 index.html",
+      "启用 Pages 并生成网址"
+    ], "首次发布需等 GitHub 构建 1–2 分钟，之后每次更新约 1 分钟内生效。");
+    resetSteps();
 
-    this.cards.forEach((item, index) => {
-      const cardEl = document.createElement('div');
-      cardEl.className = 'chem-card type-' + item.elemData.type + (this.memoryMode ? ' face-down' : '');
-      cardEl.dataset.index = index;
+    markStep(0, "run");
+    var me = await ghFetch("https://api.github.com/user", { headers: ghHeaders(false) });
+    markStep(0, "done");
 
-      cardEl.innerHTML =
-        '<span class="card-type-tag">' + item.tagName + '</span>' +
-        '<span class="card-category-dot dot-' + item.elemData.type + '"></span>' +
-        '<div class="card-main-val">' + item.displayMain + '</div>' +
-        '<div class="card-sub-info">' + item.displaySub + '</div>';
+    markStep(1, "run");
+    var repoInfo = null;
+    try {
+      repoInfo = await ghFetch("https://api.github.com/repos/" + me.login + "/" + repo, { headers: ghHeaders(false) });
+    } catch (e) {
+      if (e.status !== 404) throw e;
+      repoInfo = await ghFetch("https://api.github.com/user/repos", {
+        method: "POST",
+        headers: ghHeaders(true),
+        body: JSON.stringify({
+          name: repo,
+          description: "Published by HTML2WEB",
+          private: false,
+          auto_init: false
+        })
+      });
+    }
+    var branch = (repoInfo && repoInfo.default_branch) || "main";
+    markStep(1, "done");
 
-      cardEl.addEventListener('click', () => this.handleCardClick(index, cardEl));
-      board.appendChild(cardEl);
+    markStep(2, "run");
+    var sha = null;
+    try {
+      var f = await ghFetch(
+        "https://api.github.com/repos/" + me.login + "/" + repo + "/contents/index.html?ref=" + encodeURIComponent(branch),
+        { headers: ghHeaders(false) }
+      );
+      sha = f.sha;
+    } catch (e) {
+      if (e.status !== 404) throw e;
+    }
+    var putBody = {
+      message: "Publish via HTML2WEB · " + new Date().toISOString().slice(0, 16).replace("T", " "),
+      content: utf8ToBase64(code)
+    };
+    if (sha) putBody.sha = sha;
+    await ghFetch("https://api.github.com/repos/" + me.login + "/" + repo + "/contents/index.html", {
+      method: "PUT",
+      headers: ghHeaders(true),
+      body: JSON.stringify(putBody)
+    });
+    markStep(2, "done");
+
+    markStep(3, "run");
+    try {
+      await ghFetch("https://api.github.com/repos/" + me.login + "/" + repo + "/pages", {
+        method: "POST",
+        headers: ghHeaders(true),
+        body: JSON.stringify({ source: { branch: branch, path: "/" } })
+      });
+    } catch (e) {
+      if (e.status !== 409) throw e; /* 409 = Pages 已启用 */
+    }
+    markStep(3, "done");
+
+    return {
+      mode: "pages",
+      main: "https://" + me.login + ".github.io/" + repo + "/",
+      alt: "https://github.com/" + me.login + "/" + repo + "/commits/" + branch,
+      admin: "https://github.com/" + me.login + "/" + repo + "/settings/pages",
+      owner: me.login,
+      repo: repo
+    };
+  }
+
+  async function startPublish(code, isSelf) {
+    if (state.busy) return;
+    if (!code.trim()) {
+      toast("源码是空的，没什么可发布的");
+      return;
+    }
+    state.lastCode = code;
+    state.lastIsSelf = !!isSelf;
+
+    state.busy = true;
+    showStep("loading");
+    el.loadingErr.innerHTML = "";
+    var t0 = Date.now();
+
+    try {
+      var result = state.mode === "pages"
+        ? await publishPages(code)
+        : await publishGist(code);
+      result.at = Date.now();
+      state.published = result;
+
+      await new Promise(function (r) { setTimeout(r, 260); });
+      showResult();
+      pushHistory(result);
+      updatePublishedPill();
+      el.stToken.textContent = "已连接 · @" + result.owner;
+      el.stToken.classList.add("status-ok");
+      if (isSelf) {
+        toast("工具已上线！收藏这个网址，任何设备打开即可使用", 3600);
+        document.getElementById("modalTitle").textContent = "HTML2WEB 已上线";
+        el.resultSub.textContent =
+          "把下面这个网址收藏起来。以后手机、任何电脑打开它，就是完整的 HTML2WEB 工具。";
+      } else {
+        el.resultSub.textContent = state.mode === "pages"
+          ? "网址固定不变，以后每次发布都更新这个页面。首次发布 GitHub 需 1–2 分钟构建，稍等片刻再打开。"
+          : "把下面这个链接发给任何人，手机、电脑都能直接打开。";
+        toast("发布成功 · 耗时 " + ((Date.now() - t0) / 1000).toFixed(1) + "s");
+      }
+    } catch (err) {
+      var running = el.stepLoading.querySelector("li.run");
+      if (running) markStep(Array.prototype.indexOf.call(el.stepsList.children, running), "err");
+      el.loadingErr.innerHTML =
+        '<div class="err-box" style="margin-top:20px">' +
+        err.message +
+        '<br><span style="opacity:.7">如果一直失败，可以点「设置」重新填写令牌。</span></div>' +
+        '<div class="modal-actions"><button class="btn" id="backConfig">改令牌</button>' +
+        '<button class="btn btn-primary" id="retry">重试</button></div>';
+
+      var backBtn = document.getElementById("backConfig");
+      if (backBtn) backBtn.addEventListener("click", function () {
+        state.token = "";
+        localStorage.removeItem(LS.token);
+        updateTokenStatus();
+        el.tokenInput.value = "";
+        syncVisUI();
+        syncModeUI();
+        showStep("config");
+      });
+      var retryBtn = document.getElementById("retry");
+      if (retryBtn) retryBtn.addEventListener("click", function () {
+        el.loadingErr.innerHTML = "";
+        resetSteps();
+        state.busy = false;
+        startPublish(state.lastCode || el.code.value, state.lastIsSelf);
+      });
+    } finally {
+      state.busy = false;
+    }
+  }
+
+  function showResult() {
+    var p = state.published;
+    if (!p) return;
+    el.mainLink.textContent = shorten(p.main, 60);
+    el.mainLink.href = p.main;
+    el.mainLink.title = p.main;
+
+    el.altLink.textContent = shorten(p.alt, 56);
+    el.altLink.href = p.alt;
+    el.altLink.title = p.alt;
+
+    el.gistLink.textContent = shorten(p.admin, 56);
+    el.gistLink.href = p.admin;
+    el.gistLink.title = p.admin;
+
+    el.altLabel.textContent = p.mode === "pages" ? "构建记录" : "原始文件";
+
+    var isPages = p.mode === "pages";
+    el.buildRow.hidden = !isPages;
+    el.buildStatus.textContent = "—";
+    el.buildStatus.className = "";
+    el.resultHint.textContent = isPages
+      ? "链接永久固定。首次发布后 GitHub 需 1–2 分钟构建，期间打开可能显示 404，稍等再用上方按钮查看部署状态。"
+      : "主链接由 htmlpreview.github.io 渲染，打开即显示页面。若页面里用了相对路径的图片 / CSS，请改成绝对地址或内联，否则会加载失败。";
+
+    renderHistory();
+    showStep("result");
+  }
+
+  document.getElementById("copyMain").addEventListener("click", function () {
+    if (!state.published) return;
+    copyText(state.published.main);
+    var btn = this;
+    var old = btn.textContent;
+    btn.textContent = "已复制";
+    setTimeout(function () { btn.textContent = old; }, 1400);
+  });
+
+  document.getElementById("openMain").addEventListener("click", function () {
+    if (state.published) window.open(state.published.main, "_blank");
+  });
+
+  /* Pages 部署状态查询 */
+  document.getElementById("btnBuild").addEventListener("click", async function () {
+    var p = state.published;
+    if (!p || p.mode !== "pages") return;
+    var btn = this;
+    btn.disabled = true;
+    el.buildStatus.className = "building";
+    el.buildStatus.textContent = "查询中…";
+    try {
+      var info = await ghFetch(
+        "https://api.github.com/repos/" + p.owner + "/" + p.repo + "/pages/builds/latest",
+        { headers: ghHeaders(false) }
+      );
+      var st = info.status;
+      el.buildStatus.className = st;
+      el.buildStatus.textContent =
+        st === "built" ? "已上线，现在可以打开了" :
+        st === "building" ? "构建中，约 1 分钟后再点刷新" :
+        st === "errored" ? "构建失败（检查 HTML 是否有严重错误）" : st;
+    } catch (e) {
+      el.buildStatus.className = "errored";
+      el.buildStatus.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function updatePublishedPill() {
+    if (!state.published) return;
+    el.statusPill.className = "pill live";
+    el.statusPill.innerHTML = '<span class="dot"></span>已发布 · ' + stamp();
+    el.statusPill.title = state.published.main;
+  }
+
+  el.statusPill.addEventListener("click", function () {
+    if (!state.published) return;
+    copyText(state.published.main);
+    toast("链接已复制");
+  });
+
+  /* ------------------------------------------------------------------ *
+   *  发布历史
+   * ------------------------------------------------------------------ */
+  function readHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(LS.history) || "[]");
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function pushHistory(item) {
+    var list = readHistory();
+    list.unshift({ main: item.main, gist: item.gist, at: item.at });
+    list = list.slice(0, 6);
+    try {
+      localStorage.setItem(LS.history, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  function renderHistory() {
+    var list = readHistory();
+    if (!list.length) {
+      el.historyWrap.hidden = true;
+      return;
+    }
+    el.historyWrap.hidden = false;
+    el.historyList.innerHTML = "";
+    list.forEach(function (it) {
+      var row = document.createElement("div");
+      row.className = "hitem";
+
+      var time = document.createElement("time");
+      var d = new Date(it.at);
+      function p(n) { return n < 10 ? "0" + n : "" + n; }
+      time.textContent = (d.getMonth() + 1) + "/" + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+
+      var a = document.createElement("a");
+      a.href = it.main;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = it.main.replace(/^https?:\/\//, "");
+      a.title = it.main;
+
+      var cp = document.createElement("button");
+      cp.className = "btn btn-sm btn-ghost";
+      cp.textContent = "复制";
+      cp.addEventListener("click", function () {
+        copyText(it.main);
+        toast("链接已复制");
+      });
+
+      row.appendChild(time);
+      row.appendChild(a);
+      row.appendChild(cp);
+      el.historyList.appendChild(row);
     });
   }
 
-  /* ---------- 点击卡片 ---------- */
-  handleCardClick(index, cardEl) {
-    if (this.isLocked || this.gameOver) return;
-    if (cardEl.classList.contains('matched')) return;
-    if (cardEl.classList.contains('selected')) return;
-
-    if (cardEl.classList.contains('face-down')) {
-      cardEl.classList.remove('face-down');
-      sfx.flip();
-    } else {
-      sfx.click();
-    }
-
-    cardEl.classList.add('selected');
-    const cardData = this.cards[index];
-    this.selectedCards.push({ index: index, el: cardEl, data: cardData });
-
-    // 知识点提示
-    const elem = cardData.elemData;
-    const typeCn = elem.type === 'nonmetal' ? '非金属元素' : (elem.type === 'metal' ? '金属元素' : '稀有气体');
-    document.getElementById('knowContent').innerHTML =
-      '<strong>' + elem.z + '号 ' + elem.name + '（' + elem.symbol + '）</strong>：' + typeCn + '，' + elem.desc;
-
-    if (this.selectedCards.length === 2) this.checkMatch();
+  /* ------------------------------------------------------------------ *
+   *  启动
+   * ------------------------------------------------------------------ */
+  function boot() {
+    var saved = localStorage.getItem(LS.code);
+    el.code.value = saved && saved.trim() ? saved : SAMPLE;
+    el.repoInput.value = state.repoName;
+    updateStats();
+    updateTokenStatus();
+    syncVisUI();
+    syncModeUI();
+    resetSteps();
+    render();
+    setTimeout(function () { render(); }, 40);
   }
 
-  /* ---------- 判定匹配 ---------- */
-  checkMatch() {
-    this.isLocked = true;
-    const c1 = this.selectedCards[0];
-    const c2 = this.selectedCards[1];
+  boot();
+})();
+</script><input type="file" accept=".html,.htm,text/html" style="display: none;">
 
-    if (c1.data.elemZ === c2.data.elemZ && c1.index !== c2.index) {
-      /* --- 匹配成功 --- */
-      this.combo++;
-      if (this.combo > this.maxCombo) this.maxCombo = this.combo;
 
-      const bonus = this.currentLevel >= 4 ? 1.5 : (this.currentLevel === 3 ? 1.2 : 1);
-      this.score += Math.round((100 + (this.combo - 1) * 30) * bonus);
-      this.matchedPairs++;
-
-      sfx.match(this.combo);
-      if (this.combo >= 2) this.showPopup('comboPopup', 'COMBO x' + this.combo + '!');
-
-      setTimeout(() => {
-        c1.el.classList.remove('selected');
-        c2.el.classList.remove('selected');
-        c1.el.classList.add('matched');
-        c2.el.classList.add('matched');
-
-        this.selectedCards = [];
-        this.isLocked = false;
-        this.updateStats();
-
-        if (this.matchedPairs >= this.totalPairs) this.handleWin();
-      }, 320);
-
-    } else {
-      /* --- 匹配失败：扣分 + 扣时 --- */
-      this.combo = 0;
-      this.score = Math.max(0, this.score - 20);
-      this.remaining = Math.max(0, this.remaining - 3);
-      sfx.wrong();
-      this.showPopup('penaltyPopup', '-20分 / -3秒');
-      c1.el.classList.add('wrong');
-      c2.el.classList.add('wrong');
-      this.updateStats();
-      this.updateTimerUI();
-
-      const timeOut = this.remaining <= 0;
-
-      setTimeout(() => {
-        c1.el.classList.remove('selected', 'wrong');
-        c2.el.classList.remove('selected', 'wrong');
-        if (this.memoryMode) {
-          c1.el.classList.add('face-down');
-          c2.el.classList.add('face-down');
-        }
-        this.selectedCards = [];
-        this.isLocked = false;
-
-        if (timeOut) this.handleLose();
-      }, 700);
-    }
-  }
-
-  showPopup(id, text) {
-    const el = document.getElementById(id);
-    el.textContent = text;
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 600);
-  }
-
-  /* ---------- 计分板 ---------- */
-  updateStats() {
-    document.getElementById('valScore').textContent = this.score;
-    document.getElementById('valCombo').textContent = this.combo;
-  }
-
-  /* ---------- 倒计时 ---------- */
-  startTimer() {
-    this.clearTimer();
-    this.timerInterval = setInterval(() => {
-      if (this.gameOver) return;
-      this.remaining--;
-      this.elapsed++;
-      this.updateTimerUI();
-      if (this.remaining <= 0) this.handleLose();
-    }, 1000);
-  }
-
-  clearTimer() {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null;
-    }
-  }
-
-  updateTimerUI() {
-    const r = Math.max(0, this.remaining);
-    const m = String(Math.floor(r / 60)).padStart(2, '0');
-    const s = String(r % 60).padStart(2, '0');
-    const timerEl = document.getElementById('valTimer');
-    timerEl.textContent = m + ':' + s;
-    timerEl.classList.toggle('time-warning', r <= 20 && r > 10);
-    timerEl.classList.toggle('time-danger', r <= 10);
-
-    const bar = document.getElementById('timerBar');
-    const pct = this.timeLimit > 0 ? Math.max(0, (r / this.timeLimit) * 100) : 0;
-    bar.style.width = pct + '%';
-    bar.classList.toggle('warning', pct <= 35 && pct > 15);
-    bar.classList.toggle('danger', pct <= 15);
-  }
-
-  /* ---------- 结算 ---------- */
-  handleWin() {
-    if (this.gameOver) return;
-    this.gameOver = true;
-    this.isLocked = true;
-    this.clearTimer();
-    sfx.win();
-
-    const cfg = LEVEL_CONFIG[this.currentLevel];
-    document.getElementById('resultCard').classList.remove('lose');
-    document.getElementById('resIcon').textContent = '🎉';
-    document.getElementById('resTitle').textContent = '挑战成功！';
-    document.getElementById('resDesc').textContent =
-      '你已通过「' + cfg.title + '」，剩余 ' + this.remaining + ' 秒。';
-
-    let rank = '化学新星 ✨';
-    if (this.score >= 2000) rank = '元素大师 👑';
-    else if (this.score >= 1400) rank = '化学学霸 🌟';
-    else if (this.score >= 900) rank = '化学能手 💪';
-    document.getElementById('resRank').textContent = rank;
-
-    this.modalNextLevel = this.currentLevel >= 4 ? 1 : this.currentLevel + 1;
-    document.getElementById('resPrimaryBtn').textContent =
-      this.currentLevel >= 4 ? '从头再来' : '下一关（更难）';
-
-    this.fillResultStats();
-    document.getElementById('resultModal').classList.add('active');
-  }
-
-  handleLose() {
-    if (this.gameOver) return;
-    this.gameOver = true;
-    this.isLocked = true;
-    this.clearTimer();
-    sfx.lose();
-
-    document.getElementById('resultCard').classList.add('lose');
-    document.getElementById('resIcon').textContent = '⏰';
-    document.getElementById('resTitle').textContent = '时间耗尽！';
-    document.getElementById('resDesc').textContent =
-      '还差 ' + (this.totalPairs - this.matchedPairs) + ' 对没消完，再挑战一次吧！';
-    document.getElementById('resRank').textContent = '再接再厉 🔥';
-
-    this.modalNextLevel = this.currentLevel;
-    document.getElementById('resPrimaryBtn').textContent = '再试一次';
-
-    this.fillResultStats();
-    document.getElementById('resultModal').classList.add('active');
-  }
-
-  fillResultStats() {
-    const m = String(Math.floor(this.elapsed / 60)).padStart(2, '0');
-    const s = String(this.elapsed % 60).padStart(2, '0');
-    document.getElementById('resScore').textContent = this.score;
-    document.getElementById('resTime').textContent = m + ':' + s;
-    document.getElementById('resCombo').textContent = this.maxCombo + ' 连击';
-  }
-
-  modalPrimary() {
-    this.closeModal();
-    this.switchLevel(this.modalNextLevel);
-  }
-
-  closeModal() {
-    document.getElementById('resultModal').classList.remove('active');
-  }
-
-  /* ---------- 关卡切换 ---------- */
-  switchLevel(lvl) {
-    document.querySelectorAll('.mode-btn').forEach((btn) => {
-      btn.classList.toggle('active', parseInt(btn.dataset.level, 10) === lvl);
-    });
-    this.initLevel(lvl);
-  }
-
-  /* ---------- 洗牌 ---------- */
-  shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const tmp = array[i];
-      array[i] = array[j];
-      array[j] = tmp;
-    }
-    return array;
-  }
-}
-
-const game = new ElementGame();
-window.addEventListener('DOMContentLoaded', () => {
-  game.initLevel(1);
-});
-</script>
-<!--aigc-badge--><div data-aigc="notice" style="position:fixed;left:0;right:0;bottom:8px;z-index:2147483647;pointer-events:none;text-align:center;font:12px/1.5 'PingFang SC','Microsoft YaHei',sans-serif"><span style="display:inline-block;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,.88);color:#555;border:1px solid rgba(0,0,0,.14)">内容由 AI生成，请仔细甄别</span></div>
-</body>
-</html>
+</body></html>
